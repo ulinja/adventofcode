@@ -2,6 +2,7 @@
 
 from argparse import ArgumentParser
 import importlib
+import time
 
 import aoc
 
@@ -36,7 +37,20 @@ def main():
     main_import_path = f"aoc.year{CHALLENGE_YEAR}.day{str(CHALLENGE_DAY).rjust(2, '0')}.main"
     try:
         module = importlib.import_module(main_import_path)
+
+        start_time_wall_seconds = time.time()
+        start_time_cpu_seconds = time.process_time()
+
         module.main()
+
+        end_time_cpu_seconds = time.process_time()
+        end_time_wall_seconds = time.time()
+        wall_time_elapsed_milliseconds = (end_time_wall_seconds - start_time_wall_seconds) * 1000
+        cpu_time_elapsed_milliseconds = (end_time_cpu_seconds - start_time_cpu_seconds) * 1000
+
+        print()
+        print(f"Execution time (CPU): {cpu_time_elapsed_milliseconds} ms")
+        print(f"Execution time (Total): {wall_time_elapsed_milliseconds} ms")
     except ImportError:
         print(f"Cannot find solver for Year {CHALLENGE_YEAR} Day {CHALLENGE_DAY}: module '{main_import_path}' does not exist.")
 
