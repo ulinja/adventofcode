@@ -1,0 +1,44 @@
+#!/usr/bin/env python3
+
+from argparse import ArgumentParser
+import importlib
+
+import aoc
+
+def main():
+    parser = ArgumentParser(
+        prog="solve",
+        description="This program executes my solvers for the Advent Of Code challenges."
+    )
+
+    parser.add_argument(
+        "-y", "--year",
+        type=int,
+        dest="year",
+        choices=range(aoc._AOC_MIN_YEAR, aoc._AOC_MAX_YEAR + 1),
+        default=aoc._AOC_DEFAULT_YEAR,
+        metavar="YY",
+        help=f"The year of the challenge to be solved. Defaults to {aoc._AOC_DEFAULT_YEAR}."
+    )
+
+    parser.add_argument(
+        "day",
+        type=int,
+        choices=range(1, 25),
+        metavar="DAY",
+        help=f"The day of the challenge to be solved."
+    )
+
+    _args = parser.parse_args()
+    CHALLENGE_YEAR = _args.year
+    CHALLENGE_DAY = _args.day
+
+    main_import_path = f"aoc.year{CHALLENGE_YEAR}.day{str(CHALLENGE_DAY).rjust(2, '0')}.main"
+    try:
+        module = importlib.import_module(main_import_path)
+        module.main()
+    except ImportError:
+        print(f"Cannot find solver for Year {CHALLENGE_YEAR} Day {CHALLENGE_DAY}: module '{main_import_path}' does not exist.")
+
+if __name__ == '__main__':
+    main()
