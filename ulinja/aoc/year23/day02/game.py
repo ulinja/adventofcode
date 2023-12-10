@@ -26,6 +26,9 @@ class Game():
         if not isinstance(line, str):
             raise TypeError(f"Expected type 'str' as input, but got '{type(line)}'.")
 
+        if line.endswith("\n"):
+            line = line[0:-1]
+
         self.id = int(line.split(":")[0][5:])
 
         reveal_tokens = line.split(":")[1][1:].split("; ")
