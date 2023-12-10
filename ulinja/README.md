@@ -11,6 +11,11 @@ cd ulinja
 ./solve <DAY>
 ```
 
+For help with the runner:
+```bash
+./solve -h
+```
+
 ## Module Structure
 
 Code for the solvers is organized within the `aoc` module.
@@ -38,5 +43,5 @@ ulinja
 │   .
 │   .
 │   .
-└── main.py             # Main entrypoint to run solvers for challenges
+└── solve               # Main entrypoint to run solvers for challenges
 ```
