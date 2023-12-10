@@ -3,7 +3,6 @@
 
 from typing import List
 from pathlib import Path
-from string import digits as DIGITS
 from dataclasses import dataclass
 import re
 
@@ -102,17 +101,18 @@ def parse_calibration_digits_from_line(line: str, parse_words: bool) -> List[Cal
             for match in word_matches:
                 calibration_digits.append(CalibrationDigit(value=digit, index=match.span()[0], from_word=True))
 
-    # Return list sorted by match index in ascending order
+    # Return list, sorted by match indices in ascending order
     return sorted(calibration_digits, key=lambda calibration_digit: calibration_digit.index)
 
 
 def main():
-    """Parses the caliration values from the input files, sums them up and prints the result."""
+    """Parses the calibration values from the input file, sums them up and prints the results."""
 
     lines = get_lines()
     sum_numeric = sum_with_words = 0
     for line in lines:
         digits_numeric = parse_calibration_digits_from_line(line, parse_words=False)
+        # Contstruct calibration value by concatenating the first and the last parsed digits
         calibration_value_numeric = int(f"{digits_numeric[0].value}{digits_numeric[-1].value}")
         sum_numeric += calibration_value_numeric
 
