@@ -15,7 +15,7 @@ class CalibrationDigit:
     index : int
         Substring position index representing where this digit is located within the line.
     from_word : bool
-        Indicates whether this digit was parsed from a word (e.g. "tree") or a number (e.g. "3").
+        Indicates whether this digit was parsed from a word (e.g. "three") or a number (e.g. "3").
     """
 
     value: int

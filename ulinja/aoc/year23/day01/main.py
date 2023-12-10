@@ -18,5 +18,5 @@ def main():
         calibration_value_with_words = int(f"{digits_with_word[0].value}{digits_with_word[-1].value}")
         sum_with_words += calibration_value_with_words
 
-    print(f"Sum with numbers only: {sum_numeric}")
-    print(f"Sum with words included: {sum_with_words}")
+    print(f"Sum with numbers only (Part I): {sum_numeric}")
+    print(f"Sum with words included (Part II): {sum_with_words}")
