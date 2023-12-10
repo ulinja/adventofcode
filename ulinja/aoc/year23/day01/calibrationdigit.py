@@ -1,36 +1,8 @@
-#!/usr/bin/env python3
-"""Solves Advent of Code 2023 - Day 01."""
+"""Classes and functions for working with calibration digits."""
 
 from typing import List
-from pathlib import Path
 from dataclasses import dataclass
 import re
-
-
-def get_lines() -> List[str]:
-    """Retrieves the lines of the input file as a list of strings.
-
-    Returns
-    -------
-    List[str]
-        List containing each line of the input file.
-
-    Raises
-    ------
-    FileNotFoundError
-        If the input file does not exist.
-    """
-
-    PATH_TO_INPUT_FILE = Path('input.txt').resolve()
-    if not PATH_TO_INPUT_FILE.is_file():
-        raise FileNotFoundError(f"Input file not found: '{PATH_TO_INPUT_FILE}'")
-
-    lines = []
-    with open(PATH_TO_INPUT_FILE) as input_file:
-        lines = input_file.readlines()
-
-    return lines
-
 
 @dataclass
 class CalibrationDigit:
@@ -103,26 +75,3 @@ def parse_calibration_digits_from_line(line: str, parse_words: bool) -> List[Cal
 
     # Return list, sorted by match indices in ascending order
     return sorted(calibration_digits, key=lambda calibration_digit: calibration_digit.index)
-
-
-def main():
-    """Parses the calibration values from the input file, sums them up and prints the results."""
-
-    lines = get_lines()
-    sum_numeric = sum_with_words = 0
-    for line in lines:
-        digits_numeric = parse_calibration_digits_from_line(line, parse_words=False)
-        # Contstruct calibration value by concatenating the first and the last parsed digits
-        calibration_value_numeric = int(f"{digits_numeric[0].value}{digits_numeric[-1].value}")
-        sum_numeric += calibration_value_numeric
-
-        digits_with_word = parse_calibration_digits_from_line(line, parse_words=True)
-        calibration_value_with_words = int(f"{digits_with_word[0].value}{digits_with_word[-1].value}")
-        sum_with_words += calibration_value_with_words
-
-    print(f"Sum with numbers only: {sum_numeric}")
-    print(f"Sum with words included: {sum_with_words}")
-
-
-if __name__ == '__main__':
-    main()
