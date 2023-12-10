@@ -7,8 +7,6 @@ from aoc.year23.day02.game import Game
 
 
 def main():
-    """Parses the calibration values from the input file, sums them up and prints the results."""
-
     lines: List[str] = get_lines_from_file(get_path_to_input_data(23, 2))
     games: List[Game] = []
     for line in lines:
