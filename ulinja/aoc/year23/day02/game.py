@@ -64,3 +64,7 @@ class Game():
         blue_possible = self.blue_count_min <= blue_max_count
 
         return red_possible and green_possible and blue_possible
+
+    @property
+    def power(self):
+        return self.red_count_min * self.green_count_min * self.blue_count_min
