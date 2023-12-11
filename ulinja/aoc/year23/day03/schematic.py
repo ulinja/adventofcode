@@ -98,6 +98,20 @@ class Symbol():
         return f"{self.__class__.__name__}(value={self.value}, coordinate={self.coordinate})"
 
 
+class Gear(Symbol):
+    """Represents a Gear, that is a Symbol whose value is '*', and which is adjacent to exactly two part numbers.
+
+    Attributes
+    ----------
+    gear_ratio : int
+        The product of the two Number values adjacent to this Gear.
+    """
+
+    def __init__(self, value: str, coordinate: Coordinate, gear_ratio: int):
+        Symbol.__init__(self, value, coordinate)
+        self.gear_ratio = gear_ratio
+
+
 class Number():
     """Represents a number located within a Schematic.
 
@@ -163,6 +177,8 @@ class Schematic:
         A list of all Symbols in this Schematic.
     part_numbers: List[Number]
         A list of all part numbers, that is numbers which are adjacent to a Symbol, in this Schematic.
+    gears: List[Gear]
+        A list of all Gears in this Schematic.
     """
 
     def __init__(self, input_file_path: str | Path):
@@ -189,6 +205,7 @@ class Schematic:
         self.numbers: List[Number] = []
         self.symbols: List[Symbol] = []
         self.part_numbers: List[Number] = []
+        self.gears: List[Gear] = []
 
         lines: List[str] = []
         with open(input_file_path) as input_file:
@@ -217,7 +234,6 @@ class Schematic:
 
             current_y += 1
 
-        # inefficient
         for number in self.numbers:
             is_part_number = False
             for symbol in self.symbols:
@@ -226,3 +242,12 @@ class Schematic:
                     break
             if is_part_number:
                 self.part_numbers.append(number)
+
+        for symbol in filter(lambda symbol: symbol.value == "*", self.symbols):
+            adjacent_numbers: List[Number] = []
+            for number in self.part_numbers:
+                if number.is_adjacent_to(symbol.coordinate):
+                    adjacent_numbers.append(number)
+            if len(adjacent_numbers) == 2:
+                gear_ratio = adjacent_numbers[0].value * adjacent_numbers[1].value
+                self.gears.append(Gear(value=symbol.value, coordinate=symbol.coordinate, gear_ratio=gear_ratio))
