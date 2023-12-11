@@ -1,4 +1,4 @@
-"""Solves Advent of Code 2023 - Day 02."""
+"""Solves Advent of Code 2023 - Day 03."""
 
 from aoc.utils.file import get_path_to_input_data
 from aoc.year23.day03.schematic import Schematic
