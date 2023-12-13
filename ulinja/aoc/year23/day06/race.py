@@ -36,13 +36,19 @@ class Race:
         return f"{self.__class__.__name__}(id={self.id}, duration={self.duration}, distance_min={self.distance_min})"
 
     @staticmethod
-    def from_lines(input_lines: List[str]) -> List["Race"]:
+    def from_lines(input_lines: List[str], bad_kerning: bool = False) -> List["Race"]:
         """Bulk constructor which parses input data lines into a list of Race objects.
 
         The `input_lines` are expected to be of the following format:
         [
             "Time:      7  15   30\n",
             "Distance:  9  40  200\n"
+        ]
+
+        If `bad_kerning` is set to True, the input lines as listed above are adjusted into this format:
+        [
+            "Time:      71530\n",
+            "Distance:  940200\n"
         ]
         """
 
@@ -56,8 +62,19 @@ class Race:
             raise RuntimeError("Duration/Distance count mismatch in input data.")
 
         races: List["Race"] = []
-        for id, race_params in enumerate(zip(durations, distances), start=1):
-            races.append(Race(id, race_params[0], race_params[1]))
+
+        if bad_kerning:
+            race_duration = ""
+            for n in durations:
+                race_duration += str(n)
+            race_distance = ""
+            for n in distances:
+                race_distance += str(n)
+            races.append(Race(1, int(race_duration), int(race_distance)))
+        else:
+            for id, race_params in enumerate(zip(durations, distances), start=1):
+                races.append(Race(id, race_params[0], race_params[1]))
+
         return races
 
     def get_distance_by_charge_duration(self, charge_duration: int) -> int:
