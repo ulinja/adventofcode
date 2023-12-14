@@ -44,3 +44,33 @@ def is_int_positive_non_zero(input_value) -> None:
     is_int(input_value)
     if input_value < 1:
         raise ValueError(f"Expected a positive, non-zero input value but got '{input_value}'.")
+
+
+def is_string(input_value) -> None:
+    """Asserts that the `input_value` is a string.
+
+    Raises
+    ------
+    TypeError
+        If the `input_value` is not of type 'str'.
+    """
+
+    if not isinstance(input_value, str):
+        raise TypeError(f"Expected type 'str' but got '{type(input_value)}'.")
+
+
+def is_string_non_empty(input_value) -> None:
+    """Asserts that the `input_value` is a non-empty string.
+
+    Raises
+    ------
+    TypeError
+        If the `input_value` is not of type 'str'.
+    ValueError
+        If the `input_value` is the empty string.
+    """
+
+    if not isinstance(input_value, str):
+        raise TypeError(f"Expected type 'str' but got '{type(input_value)}'.")
+    if len(input_value) < 1:
+        raise ValueError(f"Expected input string to be non-empty.")
