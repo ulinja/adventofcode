@@ -1,6 +1,8 @@
-# Advent of Code solutions
+# Advent of Code 2023
 
-This directory contains [my](https://github.com/ulinja/) solvers, written in Python, for Advent Of Code.
+This directory contains solutions for AOC 2023, where I used Python.
+
+I wrote a [python runner](./solve) which executes my solvers with their respective input data.
 
 **Dependencies:**
 - Python >= 3.11
@@ -23,7 +25,7 @@ Each solver provides a module called `main`, with a function called `main`, whic
 Input data for each challenge is in the `data` directory, and solvers expect to find it there.
 
 ```text
-ulinja
+2023
 ├── aoc                 # Top level module for sourcecode
 │   ├── utils           # Shared utils
 │   │   └── file.py
