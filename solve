@@ -6,6 +6,7 @@ import time
 
 import aoc
 
+
 def main():
     parser = ArgumentParser(
         prog="solve",
@@ -27,7 +28,7 @@ def main():
         type=int,
         choices=range(1, 25),
         metavar="DAY",
-        help=f"The day of the challenge to be solved."
+        help="The day of the challenge to be solved."
     )
 
     _args = parser.parse_args()
@@ -53,6 +54,7 @@ def main():
         print(f"Execution time (Total): {wall_time_elapsed_milliseconds} ms")
     except ImportError:
         print(f"Cannot find solver for Year {CHALLENGE_YEAR} Day {CHALLENGE_DAY}: module '{main_import_path}' does not exist.")
+
 
 if __name__ == '__main__':
     main()
